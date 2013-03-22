@@ -1,0 +1,6 @@
+*.py[co]
+*.egg*
+*.log
+build
+.vagrant
+.DS_Store

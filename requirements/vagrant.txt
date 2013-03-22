@@ -1,0 +1,7 @@
+-r common.txt
+
+Werkzeug==0.8.3
+django-debug-toolbar==0.9.4
+gunicorn==0.17.2
+ipdb==0.7
+ipython==0.13.1
