@@ -3,9 +3,9 @@ Django-Vagrant
 
 Django-Vagrant aims to be a quick way to get up and running with a new Django project in a Virtualbox built with Vagrant and Salt.  Out of the box, it provides a pre-configured Nginx installation setup to proxy requests to Django via Gunicorn and includes a pre-configured Postgresql installation as well.  Supervisor is used to monitor Gunicorn.
 
-The packages should be easily extensible to include extra software by adding new Salt states as required and doing a `vagrant reload` or adding Python based dependencies to one of the targetted requirements files.  By default, 'requirements/vagrant.txt' contains all of the Python dependencies (such as Django).
+The packages should be easily extensible to include extra software by adding new Salt states as required and doing a `vagrant reload` or adding Python based dependencies to one of the targetted requirements files.  By default, 'requirements/vagrant.txt' contains all of the Python dependencies (such as Django) in use on the Vagrant box.  There are also requirements files that target production and local environments exclusively, as well as a common requirements file for any requirement that should always be met.
 
-For ease of use, all Python dependencies are installed to a virtualenv, managed by virtualenvwrapper, named the same as your project.
+For ease of use, all Python dependencies are installed to a virtualenv, managed by virtualenvwrapper, with the same name as your project.
 
 Getting Started
 ---------------
