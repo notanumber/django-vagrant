@@ -19,95 +19,72 @@ This should result in a source tree like:
 
     project_name
               |
-               --docs
+              +--docs
+              +-- log
+              +-- project_name
+              | |
+              | +-- assets
+              | | |
+              | | +-- css
+              | | +-- img
+              | | +-- js
+              | |
+              | +-- media
+              | +-- project_name
+              | | |
+              | | +-- settings
+              | | | |
+              | | | +- __init__.py
+              | | | +- base.py
+              | | | +- local.py
+              | | | +- production.py
+              | | | +- vagrant.py
+              | | |
+              | | +-- __init__.py
+              | | +-- urls.py
+              | | +-- wsgi.py
+              | |
+              | +-- templates
+              | +-- __init__.py
               |
-               -- log
+              +-- requirements
+              | |
+              | +-- common.txt
+              | +-- local.txt
+              | +-- production.txt
+              | +-- vagrant.txt
               |
-               -- project_name
+              +-- salt
               | |
-              |  -- assets
+              | +-- pillar
               | | |
-              | |  -- css
-              | | |
-              | |  -- img
-              | | |
-              | |  -- js
-              | |
-              |  -- media
-              | |
-              |  -- project_name
-              | | |
-              | |  -- settings
-              | | | |
-              | | |  - __init__.py
-              | | | |
-              | | |  - base.py
-              | | | |
-              | | |  - local.py
-              | | | |
-              | | |  - production.py
-              | | | |
-              | | |  - vagrant.py
-              | | |
-              | |  -- __init__.py
-              | | |
-              | |  -- urls.py
-              | | |
-              | |  -- wsgi.py
-              | |
-              |  -- templates
-              | |
-              |  -- __init__.py
-              |
-               -- requirements
-              | |
-              |  -- common.txt
-              | |
-              |  -- local.txt
-              | |
-              |  -- production.txt
-              | |
-              |  -- vagrant.txt
-              |
-               -- salt
-              | |
-              |  -- pillar
-              | | |
-              | |  -- db.sls
-              | | |
-              | |  -- project.sls
-              | | |
-              | |  -- top.sls
+              | | +-- db.sls
+              | | +-- project.sls
+              | | +-- top.sls
               | |
               |  -- salt
               | | |
-              | |  -- db
+              | | +-- db
               | | | |
-              | | |  -- init.sls  
+              | | | +-- init.sls  
               | | |
-              | |  -- project
+              | | +-- project
               | | | |
-              | | |  -- .profile  
-              | | | |
-              | | |  -- _virtualenv_path_extensions.pth
-              | | | |
-              | | |  -- guicorn.conf  
-              | | | |
-              | | |  -- init.sls  
-              | | | |
-              | | |  -- vhost.conf  
+              | | | +-- .profile  
+              | | | +-- _virtualenv_path_extensions.pth
+              | | | +-- gunicorn.conf
+              | | | +-- init.sls
+              | | | +-- vhost.conf  
               | | |
-              | |  -- www
+              | | +-- www
               | | | |
-              | | |  -- init.sls  
+              | | | +-- init.sls  
               | |
-              |  -- minion.conf
+              | +-- minion.conf
               |
-               -- README
-              |
-               -- requirements.txt
-              |
-               -- Vagrantfile
+              +-- README
+              +-- requirements.txt
+              +-- Vagrantfile
 
 Once you have the project layout in place, simply issue the `vagrant up` command to have Vagrant provision your server.  This should take a few minutes, but once it's done, you can access your new server at 'localhost:8080' in your browser!
 
