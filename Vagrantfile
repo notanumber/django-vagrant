@@ -1,13 +1,13 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.box = "precise64"
-  config.vm.forward_port 80, 8080
-  config.vm.share_folder("v-root", "/home/vagrant/{{ project_name }}", ".")
-  config.vm.share_folder("s-root", "/srv/salt", "salt/salt")
-  config.vm.share_folder("p-root", "/srv/pillar", "salt/pillar")
+  config.vm.network :forwarded_port, host: 8080, guest: 80
+  config.vm.synced_folder ".", "/home/vagrant/{{ project_name }}"
+  config.vm.synced_folder "salt/salt", "/srv/salt"
+  config.vm.synced_folder "salt/pillar", "/srv/pillar"
 
   ## Salt Provisioner (requires `vagrant gem install vagrant-salt`)
   config.vm.provision :salt do |salt|

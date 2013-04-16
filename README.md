@@ -93,8 +93,8 @@ Requirements
 
 Django-Vagrant has the following requirements.  Versions used in testing are noted alongside.
 
-- `Virtualbox 4.2.8 - https://www.virtualbox.org/<https://www.virtualbox.org/>`
-- `Vagrant 1.0.6 - http://www.vagrantup.com/<http://www.vagrantup.com/>`
-- `Vagrant-salt 0.3.2 - https://github.com/saltstack/salty-vagrant<https://github.com/saltstack/salty-vagrant>`
+- `Virtualbox 4.2.12 - https://www.virtualbox.org/<https://www.virtualbox.org/>`
+- `Vagrant 1.2.0 - http://www.vagrantup.com/<http://www.vagrantup.com/>`
+- `Vagrant-salt 0.4.0 - https://github.com/saltstack/salty-vagrant<https://github.com/saltstack/salty-vagrant>`
 
 Any other requirements should be installed automatically by Salt during the provisioning of the Virtualbox.
