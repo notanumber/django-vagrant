@@ -12,7 +12,8 @@ Vagrant.configure("2") do |config|
   ## Salt Provisioner (requires `vagrant gem install vagrant-salt`)
   config.vm.provision :salt do |salt|
     salt.run_highstate = true
-    salt.salt_install_type = "git"
-    salt.salt_install_args = "develop"
+    salt.minion_config = "salt/minion.conf"
+#    salt.salt_install_type = "git"
+#    salt.salt_install_args = "develop"
   end
 end
