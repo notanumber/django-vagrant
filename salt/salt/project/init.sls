@@ -126,6 +126,8 @@ virtualenvwrapper:
 /home/vagrant/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log:
     file:
         - directory
+        - user: vagrant
+        - group: vagrant
 
 /home/vagrant/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log/nginx-access.log:
     file:
