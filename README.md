@@ -12,7 +12,7 @@ Getting Started
 
 Assuming a pre-existing django-admin.py on your path, execute a variant of the following to build your new project:
 
-    django-admin.py startproject --template=https://github.com/notanumber/django_vagrant/archive/master.zip <my_project> --name=Vagrantfile --extension=py --extension=sls
+    django-admin.py startproject --template=https://github.com/notanumber/django-vagrant/archive/master.zip <my_project> --name=Vagrantfile --extension=py --extension=sls
 
 
 This should result in a source tree like:
