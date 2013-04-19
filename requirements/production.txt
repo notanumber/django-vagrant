@@ -1,1 +1,3 @@
 -r common.txt
+
+dj-database-url==0.2.1
