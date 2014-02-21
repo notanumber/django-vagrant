@@ -7,7 +7,7 @@ The packages should be easily extensible to include extra software by adding new
 
 For ease of use, all Python dependencies are installed to a virtualenv, managed by virtualenvwrapper, with the same name as your project.
 
-Finally, the Vagrant configured VM is setup with Werkzeug<http://werkzeug.pocoo.org/> to make debugging easier.
+Finally, the Vagrant configured VM is setup with Werkzeug(<http://werkzeug.pocoo.org/>) to make debugging easier.
 
 Getting Started
 ---------------
