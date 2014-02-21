@@ -110,7 +110,7 @@ export WORKON_HOME=~/.virtualenvs
 
 source /usr/local/bin/virtualenvwrapper.sh
 
-export DJANGO_SETTINGS_MODULE='{% templatetag openvariable %} django_settings_module {% templatetag closevariable %}'
-export SECRET_KEY='{% templatetag openvariable %} secret_key {% templatetag closevariable %}'
+export DJANGO_SETTINGS_MODULE='{{ django_settings_module }}'
+export SECRET_KEY='{{ secret_key }}'
 
 export LC_ALL="en_CA.UTF-8"
