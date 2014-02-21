@@ -7,6 +7,8 @@ The packages should be easily extensible to include extra software by adding new
 
 For ease of use, all Python dependencies are installed to a virtualenv, managed by virtualenvwrapper, with the same name as your project.
 
+Finally, the Vagrant configured VM is setup with Werkzeug<http://werkzeug.pocoo.org/> to make debugging easier.
+
 Getting Started
 ---------------
 
@@ -86,7 +88,7 @@ This should result in a source tree like:
               +-- requirements.txt
               +-- Vagrantfile
 
-Once you have the project layout in place, simply issue the `vagrant up` command to have Vagrant provision your server.  This should take a few minutes, but once it's done, you can access your new server at 'localhost:8080' in your browser!
+Once you have the project layout in place, simply issue the `vagrant up` command to have Vagrant provision your server.  This should take a few minutes, but once it's done, you can access your new server at 'localhost' in your browser!  Alternatively, you can uncomment the `config.vm.network :private_network, ip: "10.0.0.10"` line in Vagrantfile to setup a private network.  Once you've done this, you can add a line to your /etc/hosts (or your OS equivalent) to map your choice of domain name to the private network.  eg., dev.myproject.com where www.myproject.com is your live site.
 
 Requirements
 ------------
