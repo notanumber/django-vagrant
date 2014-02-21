@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "salt/salt", "/srv/salt"
   config.vm.synced_folder "salt/pillar", "/srv/pillar"
 
-  ## SSH agent forward?
+  ## To use SSH agent forward, add your public key to ./salt/salt/keys/id_dsa.pub
   #config.ssh.forward_agent = true
 
   ## Salt Provisioner (requires `vagrant gem install vagrant-salt`)
