@@ -28,17 +28,17 @@ virtualenv:
         - require:
             - pkg: python-pip
 
-{{ pillar['username'] }}:
+{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}:
     user:
         - present
         - shell: /bin/bash
-        - groups: {{ pillar['groups'] }}
+        - groups: {% templatetag openvariable %} pillar['groups'] {% templatetag closevariable %}
     ssh_auth:
         - present
-        - user: {{ pillar['username'] }}
+        - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
         - source: salt://keys/id_dsa.pub
         - require:
-            - user: {{ pillar['username'] }}
+            - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
 
 virtualenvwrapper:
     pip:

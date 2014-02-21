@@ -6,7 +6,7 @@ postgresql:
         - require:
             - pkg: postgresql
     postgres_user:
-        - name: {{ pillar['username'] }}
+        - name: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
         - present
         - createdb: True
         - createuser: False
@@ -16,8 +16,8 @@ postgresql:
             - pkg: postgresql
     postgres_database:
         - present
-        - owner: {{ pillar['username'] }}
-        - name: {{ pillar['username'] }}
+        - owner: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - name: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
         - require:
             - pkg: postgresql
             - postgres_user: postgresql

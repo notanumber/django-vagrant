@@ -1,1 +1,1 @@
-/home/vagrant/{{ projectroot }}/{{ projectname }}/
+/home/vagrant/{% templatetag openvariable %} projectroot {% templatetag closevariable %}/{% templatetag openvariable %} projectname {% templatetag closevariable %}/
