@@ -2,6 +2,10 @@ include:
     - db
     - www
 
+git-core:
+    pkg:
+        - installed
+
 libpq-dev:
     pkg:
         - installed
@@ -24,63 +28,89 @@ virtualenv:
         - require:
             - pkg: python-pip
 
+{{ pillar['username'] }}:
+    user:
+        - present
+        - shell: /bin/bash
+        - groups: {{ pillar['groups'] }}
+    ssh_auth:
+        - present
+        - user: {{ pillar['username'] }}
+        - source: salt://keys/id_dsa.pub
+        - require:
+            - user: {{ pillar['username'] }}
+
 virtualenvwrapper:
     pip:
         - installed
         - require:
             - pip: virtualenv
 
-/home/vagrant/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}:
+/home/{% templatetag openvariable %} pillar['username'] {% templatetage closevariable %}/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetage closevariable %}:
     virtualenv:
         - managed
         - no_site_packages: True
         - distribute: True
-        - requirements: /home/vagrant/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/requirements/vagrant.txt
-        # - runas: vagrant
+        - requirements: /home/{% templatetag openvariable %} pillar['username'] {% templatetage closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetage closevariable %}/requirements/{% templatetag openvariable %} pillar['environment'] {% templatetage closevariable %}.txt
         - require:
+            - user: {% templatetag openvariable %} pillar['username'] {% templatetage closevariable %}
             - pip: virtualenvwrapper
             - pkg: libpq-dev
             - pkg: python-dev
             - pkg: postgresql
 
-/home/vagrant/.virtualenvs:
+/home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/.virtualenvs:
     file:
         - directory
-        - user: vagrant
-        - group: vagrant
+        - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - group: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
         - mode: 775
         - recurse:
             - user
             - group
             - mode
         - require:
-            - virtualenv: /home/vagrant/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}
+            - virtualenv: /home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}
 
-/home/vagrant/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}/lib/python2.7/site-packages/_virtualenv_path_extensions.pth:
+/home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}/lib/python2.7/site-packages/_virtualenv_path_extensions.pth:
     file:
         - managed
-        - user: vagrant
-        - group: vagrant
+        - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - group: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
         - mode: 600
         - source: salt://project/_virtualenv_path_extensions.pth
         - require:
             - pip: virtualenvwrapper
+            - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
         - template: jinja
         - context:
             projectname: '{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}'
             projectroot: '{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}'
+            username: '{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}'
 
-/home/vagrant/.profile:
+/home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/.profile:
     file:
         - managed
-        - user: vagrant
-        - group: vagrant
+        - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - group: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
         - mode: 664
         - source: salt://project/.profile
+        - require:
+            - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+
+/home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/.bashrc:
+    file:
+        - managed
+        - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - group: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - mode: 664
+        - source: salt://project/.bashrc
         - template: jinja
+        - require:
+            - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
         - context:
             secret_key: 'my-secret-key-only-for-development'
-            django_settings_module: '{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}.settings.vagrant'
+            django_settings_module: '{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}.settings.{% templatetag openvariable %} pillar['environment'] {% templatetag closevariable %}'
 
 /etc/nginx/sites-available/{% templatetag openvariable %} pillar['vhostname'] {% templatetag closevariable %}.conf:
     file:
@@ -91,6 +121,7 @@ virtualenvwrapper:
             vhostname: '{% templatetag openvariable %} pillar['vhostname'] {% templatetag closevariable %}'
             projectname: '{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}'
             projectroot: '{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}'
+            username: '{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}'
         - require:
             - pkg: nginx
 
@@ -118,28 +149,44 @@ virtualenvwrapper:
             projectroot: '{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}'
             secret_key: 'my-secret-key-only-for-development'
             django_settings_module: '{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}.settings.vagrant'
+            username: '{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}'
+            environment: '{% templatetag openvariable %} pillar['environment'] {% templatetag closevariable %}'
         - require:
             - pkg: nginx
             - pkg: supervisor
-            - virtualenv: /home/vagrant/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}
+            - virtualenv: /home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}
 
-/home/vagrant/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log:
+/home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log:
     file:
         - directory
-        - user: vagrant
-        - group: vagrant
+        - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - group: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - require:
+            - file: /home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}
+            - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
 
-/home/vagrant/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log/nginx-access.log:
+/home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}:
+    file:
+        - directory
+        - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - group: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+        - recurse:
+            - user
+            - group
+        - require:
+            - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
+
+/home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log/nginx-access.log:
     file:
         - touch
         - require:
-            - file: /home/vagrant/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log
+            - file: /home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log
 
-/home/vagrant/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log/nginx-error.log:
+/home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log/nginx-error.log:
     file:
         - touch
         - require:
-            - file: /home/vagrant/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log
+            - file: /home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/log
 
 gunicorn:
     supervisord:
@@ -148,3 +195,4 @@ gunicorn:
         - require:
             - pkg: supervisor
             - file: /etc/supervisor/conf.d/gunicorn.conf
+
