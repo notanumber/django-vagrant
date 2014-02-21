@@ -5,9 +5,8 @@ postgresql:
         - running
         - require:
             - pkg: postgresql
-
-vagrant:
     postgres_user:
+        - name: {{ pillar['username'] }}
         - present
         - createdb: True
         - createuser: False
@@ -17,8 +16,8 @@ vagrant:
             - pkg: postgresql
     postgres_database:
         - present
-        - owner: vagrant
+        - owner: {{ pillar['username'] }}
+        - name: {{ pillar['username'] }}
         - require:
             - pkg: postgresql
-            - postgres_user: vagrant
-
+            - postgres_user: postgresql
