@@ -46,14 +46,14 @@ virtualenvwrapper:
         - require:
             - pip: virtualenv
 
-/home/{% templatetag openvariable %} pillar['username'] {% templatetage closevariable %}/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetage closevariable %}:
+/home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/.virtualenvs/{% templatetag openvariable %} pillar['projectname'] {% templatetag closevariable %}:
     virtualenv:
         - managed
         - no_site_packages: True
         - distribute: True
-        - requirements: /home/{% templatetag openvariable %} pillar['username'] {% templatetage closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetage closevariable %}/requirements/{% templatetag openvariable %} pillar['environment'] {% templatetage closevariable %}.txt
+        - requirements: /home/{% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}/{% templatetag openvariable %} pillar['projectroot'] {% templatetag closevariable %}/requirements/{% templatetag openvariable %} pillar['environment'] {% templatetag closevariable %}.txt
         - require:
-            - user: {% templatetag openvariable %} pillar['username'] {% templatetage closevariable %}
+            - user: {% templatetag openvariable %} pillar['username'] {% templatetag closevariable %}
             - pip: virtualenvwrapper
             - pkg: libpq-dev
             - pkg: python-dev
