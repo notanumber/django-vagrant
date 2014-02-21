@@ -11,12 +11,12 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "salt/pillar", "/srv/pillar"
 
   ## To setup a private network, uncomment the following.
-  ## You can than map the ip address below to a domain name using /etc/hosts
+  ## You can then map the ip address below to a domain name using /etc/hosts
   ## eg., "10.0.0.10  dev.my-project.com"
-  #config.vm.network :private_network, ip: "10.0.0.10"
+#  config.vm.network :private_network, ip: "10.0.0.10"
 
   ## To use SSH agent forward, add your public key to ./salt/salt/keys/id_dsa.pub
-  #config.ssh.forward_agent = true
+#  config.ssh.forward_agent = true
 
   ## Salt Provisioner (requires `vagrant gem install vagrant-salt`)
   config.vm.provision :salt do |salt|
